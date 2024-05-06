@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Guess evaluation</title>
+    <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
+       <style>
+    #map {
+      height: 80%;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }	
+  </style>
+   
+
+</head>
+<body >
+ <div id="map"></div>
+<script> 
+let map;
+    let markersArray=[] ; 
+    var abc = false;
+    var guessLat = parseFloat(localStorage.getItem("GuessLat"));
+    var guessLng = parseFloat(localStorage.getItem("GuessLng"));
+    var targetLat = parseFloat(localStorage.getItem("targetLat"));
+    var targetLng = parseFloat(localStorage.getItem("targetLng")); 
+    function initMap() {
+     
+     if (parseFloat(localStorage.getItem('accuracyGuess'))>5000){
+     var Zoom =2.3;
+     } else if (5000>parseFloat(localStorage.getItem('accuracyGuess'))>1000){
+         var Zoom=3
+     }else {
+         var Zoom=6
+     };
+     console.log(Zoom);
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: (guessLat + targetLat)/2, lng: (guessLng+targetLng)/2 },
+        zoom: Zoom
+      });
+
+     console.log(guessLat);
+        var connectingLine = new google.maps.Polyline({
+          path: [ {lat: guessLat , lng: guessLng}, {lat: targetLat , lng: targetLng} ],
+          geodesic: true,
+          strokeColor: "#000000",
+          strokeOpacity: 1.0,
+          strokeWeight: 1.5,
+
+        })
+        connectingLine.setMap(map);
+
+      const GuessFlagIcon = {
+              url: '/static/images/GuessFlag_Layer 1.png', // url
+              scaledSize: new google.maps.Size(30, 60), // scaled size
+              origin: new google.maps.Point(0,0), // origin
+              anchor: new google.maps.Point(0, 60) // anchor
+              };
+        var markerGuess = new google.maps.Marker({
+                 map: map,
+                position: {lat: guessLat , lng: guessLng},
+                draggable: true,
+                icon: GuessFlagIcon
+                });
+
+          const flagIcon = {
+              url: '/static/images/flag_Layer 1.png', // url
+              scaledSize: new google.maps.Size(30, 60), // scaled size
+              origin: new google.maps.Point(0,0), // origin
+              anchor: new google.maps.Point(0, 60) // anchor
+              };
+      
+        var markerTarget = new google.maps.Marker({
+                 map: map,
+                position: {lat: targetLat , lng: targetLng},
+                draggable: true,
+                icon: flagIcon
+                });
+    }
+
+</script> 
+<script> 
+  if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
+    window.onload = function() {
+        document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))) + " km.";
+  };} else{ 
+    window.onload = function() {
+      document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m.";
+  }}
+  </script>
+    
+    <h1 id="welcome"> </h1>
+     <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9c3TZDsF8PKs6jC5lf1ZlG-MN8iHthE&callback=initMap">
+    </script>
+	<a href="\">
+					<button class=first-button>
+						Try Again
+					</button>
+				</a>
+	<a href="\Start">
+    <button class=big-button> Back to Start </button>
+    </a>
+</body>
+</html>

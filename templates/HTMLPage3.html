@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Marker</title>
+    <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
+      <style>
+    #map {
+      height: 80%;
+      padding: 10;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }	
+  </style>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    
+   <script >
+
+let map;
+let markersArray=[] ; 
+var abc = false;
+function deg2rad(deg){
+    rad = deg*Math.PI/180;
+    return rad
+}
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 20, lng: 0},
+    zoom: 2.3
+  });
+  map.setOptions({draggableCursor:'crosshair'});
+  localStorage.setItem("targetLat",parseFloat('{{LAT}}'));
+  localStorage.setItem("targetLng",parseFloat('{{LNG}}'));
+    map.addListener('click', function(e) {
+      Targetlng = parseFloat('{{LNG}}');
+      Targetlat = parseFloat('{{LAT}}');
+       if (abc) {
+            markersArray[0].setPosition(e.latLng);
+            
+            let distance = Math.acos(Math.sin(deg2rad(Targetlat))*Math.sin(deg2rad(e.latLng.lat()))+Math.cos(deg2rad(Targetlat))*Math.cos(deg2rad(e.latLng.lat()))*Math.cos(deg2rad(e.latLng.lng()-Targetlng)))*6371;
+            localStorage.setItem("accuracyGuess",distance);
+            console.log(distance);
+        } else{
+          const GuessFlagIcon = {
+                url: '/static/images/GuessFlag_Layer 1.png', // url
+                scaledSize: new google.maps.Size(30, 60), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 60) // anchor
+                };
+            var marker = new google.maps.Marker({
+              map: map,
+              position: {lat: e.latLng.lat() , lng: e.latLng.lng()},
+              draggable: true,
+              icon: GuessFlagIcon
+            });
+            markersArray.push(marker)
+            abc = true;
+           let distance = Math.acos(Math.sin(deg2rad(Targetlat))*Math.sin(deg2rad(e.latLng.lat()))+Math.cos(deg2rad(Targetlat))*Math.cos(deg2rad(e.latLng.lat()))*Math.cos(deg2rad(e.latLng.lng()-Targetlng)))*6371;
+            localStorage.setItem("accuracyGuess",distance);
+        };
+        localStorage.setItem("GuessLat", e.latLng.lat());
+        localStorage.setItem("GuessLng",e.latLng.lng());
+        
+    });
+    
+}
+
+    </script> 
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9c3TZDsF8PKs6jC5lf1ZlG-MN8iHthE&callback=initMap">
+    </script>
+    <a href="\Result">
+    <button class=first-button > Guess </button>
+    </a>
+    <audio controls>
+        <source src='{{RECDIR}}' type="audio/mpeg">
+         Your browser does not support the audio element.
+    </audio>
+    
+  </body>
+</html>

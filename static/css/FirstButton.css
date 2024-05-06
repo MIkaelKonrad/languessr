@@ -1,0 +1,70 @@
+﻿.first-button{
+				background-color: red;
+				color: white;
+				border: none;
+				height: 50px;
+				width: 150px;
+				border-radius: 25px;
+				cursor: pointer;
+				transition: border-radius 0.5s;
+				margin-left: 10px;
+				margin-right: 10px;
+				font-size: 25px;
+			}
+.first-button:hover{
+				transition: background-color 0.2s;
+				background-color: green;
+				border-radius: 10px;
+				box-shadow: 10px 10px 10px black;
+			}
+.first-button:active{
+				background-color: blue;
+			}
+
+.play-button{
+	background-color: green;
+	color: white;
+	border: none;
+	height: 100px;
+	width: 100px;
+	border-radius:50px;
+
+}
+.big-button{
+				background-color: red;
+				color: white;
+				border: none;
+				height: 80px;
+				width: 150px;
+				border-radius: 25px;
+				cursor: pointer;
+				transition: border-radius 0.5s;
+				margin-left: 10px;
+				margin-right: 10px;
+				font-size: 25px;
+			}
+.big-button:hover{
+				transition: background-color 0.2s;
+				background-color: green;
+				border-radius: 10px;
+				box-shadow: 10px 10px 10px black;
+			}
+.big-button:active{
+				background-color: blue;
+			}
+
+
+.container {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
