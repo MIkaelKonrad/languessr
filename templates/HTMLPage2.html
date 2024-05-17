@@ -83,13 +83,17 @@ let map;
     }
 
 </script> 
-<script> 
+<script>
+  function logist(k,distance){
+    let value = 5000/(1+ Math.exp(-k*(distance-500)));
+    return value;
+  }
   if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
     window.onload = function() {
-        document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))) + " km.";
+        document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))) + " km, which gives you a score of " + Math.round(5000-logist(1/5000,parseFloat(localStorage.getItem('accuracyGuess')))) + '.';
   };} else{ 
     window.onload = function() {
-      document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m.";
+      document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m, which gives you a score of 5000.";
   }}
   </script>
     
