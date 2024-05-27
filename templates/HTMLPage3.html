@@ -111,6 +111,15 @@
       <source src='{{RECDIR}}' type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
-    
+    <script> 
+      window.onload = function() {
+        if(localStorage.getItem('roundNumber') == null ){
+          document.getElementById('Rnd#').innerText = "Round: 1/5" 
+        }else{
+          document.getElementById('Rnd#').innerText = "Round: " + localStorage.getItem('roundNumber') + "/5" 
+        }
+        }
+    </script>
+    <h1 id="Rnd#"> </h1>
   </body>
 </html>

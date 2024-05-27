@@ -27,7 +27,6 @@
 
 
 <body >
-  <h1 id="welcome"> </h1>
 
 
   <!-- Defining div element for map -->
@@ -144,5 +143,21 @@
 	<a href="\Start">
     <button class=big-button> Back to Start </button>
   </a>
+
+
+  <script>
+    console.log(localStorage.getItem('roundNumber'))
+  if(localStorage.getItem('roundNumber')==null) {
+      localStorage.setItem('roundNumber', 1)
+    }else if(parseInt(localStorage.getItem('roundNumber')) < 5 ){
+      localStorage.setItem('roundNumber',parseFloat(localStorage.getItem('roundNumber')) +1);
+    }else{
+      localStorage.setItem('roundNumber',1);
+    } 
+  </script>
+
+
+  <!-- The code below displays number of points and distance to solution on the page. -->
+  <h1 id="welcome"> </h1>
 </body>
 </html>

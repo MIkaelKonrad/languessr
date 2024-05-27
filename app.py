@@ -43,9 +43,13 @@ def game():
     while i<=n-1:
         rec_dir =  rec_dir + '\\' + rec_arr[i] 
         i = i+1
+     # Points 4. and 5. from above
+    return render_template("HTMLPage3.html",LNG = lng, LAT = lat, RECDIR = rec_dir, RECNAME = rec_arr[n-1])
+
     
-    # Points 4. and 5. from above
-    return render_template("HTMLPage3.html",LNG = lng, LAT = lat, RECDIR = rec_dir, RECNAME = rec_arr[n-1]) 
+   
+     
+    
 
 
 @app.route('/Result')
