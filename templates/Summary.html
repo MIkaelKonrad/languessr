@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+		<title>
+			Summary
+		</title>
+
+		<!-- Importing FirstButton.css for button style -->
+		<link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
+		
+	</head>
+	<body>
+		<h1>Languessr</h1>
+		<div class="container">
+			<div class="summary-center">
+				<h2> You have completed A full game. Start a new one</h2>
+				<a href="\Start">
+					<button class=first-button>
+						Start
+					</button>
+				</a>
+			</div>
+		</div>
+        <h1 id ="totalSc"> </h1>
+        <h1 id ="totalD"> </h1>
+		<script> 
+            console.log(localStorage.getItem('totalDistance'));
+			localStorage.setItem('roundNumber',1);
+            document.getElementById('totalSc').innerText = 'Your total score was ' + localStorage.getItem('totalScore').toString() +'/15000.';
+            document.getElementById('totalD').innerText = 'You were off by a total of ' + localStorage.getItem('totalDistance') + 'km.';
+		</script>
+        
+	</body>
+	
+	
+</html>

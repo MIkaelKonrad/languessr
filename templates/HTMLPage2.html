@@ -117,12 +117,19 @@
 
     if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
           window.onload = function() {
-              document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))) + " km, which gives you a score of " 
-              + Math.round(5000*(((15000-parseFloat(localStorage.getItem('accuracyGuess')))/15000)**6))+ '.';
+            var score =  Math.round(5000*(((15000-parseFloat(localStorage.getItem('accuracyGuess')))/15000)**6));
+            var distance = Math.round(parseFloat(localStorage.getItem('accuracyGuess')));
+            document.getElementById('welcome').innerText = "Your Guess was off by " + distance + " km, which gives you a score of " 
+              +score+ '.';
+            localStorage.setItem('totalScore',parseFloat(localStorage.getItem('totalScore')) + score);
+            localStorage.setItem('totalDistance',parseFloat(localStorage.getItem('totalDistance'))+distance);
             };
         } else{ 
           window.onload = function() {
-              document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m, which gives you a score of 5000.";
+            var score = 5000;
+            document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m, which gives you a score of 5000.";
+            localStorage.setItem('totalScore', parseFloat(localStorage.getItem('totalScore')) + score);
+            console.log(localStorage.getItem('totalScore'));
             }
         }
   </script>
@@ -135,24 +142,34 @@
 
 
   <!-- The code Below creates buttons as attributes. -->
-	<a href="\">
-		<button class=first-button>
-		  Try Again
-	  </button>
-	</a>
+  <a id = 'attrBtn'> 
+    <button class=first-button id="NxtRndBtn"></button>
+  </a>
+		
+	
+
 	<a href="\Start">
-    <button class=big-button> Back to Start </button>
+    <button class=big-button> Restart Game </button>
   </a>
 
   <!-- The code below updates the round counding -->
   <script>
   /* If no round count or roundcount = 5 set roundnuber to 1, else increase roundcount by one*/
+  var Btn = document.getElementById('NxtRndBtn');
+  var a = document.getElementById('attrBtn')
+
   if(localStorage.getItem('roundNumber')==null) {
-      localStorage.setItem('roundNumber', 1)
+      localStorage.setItem('roundNumber', 1);
+      Btn.innerText  = 'Next Round';
+      a.href = '/';
     }else if(parseInt(localStorage.getItem('roundNumber')) < 5 ){
       localStorage.setItem('roundNumber',parseFloat(localStorage.getItem('roundNumber')) +1);
+      Btn.innerText  = 'Next Round';
+      a.href = '/';
     }else{
       localStorage.setItem('roundNumber',1);
+      Btn.innerText = 'Summary';
+      a.href = '/Summary';
     } 
   </script>
 

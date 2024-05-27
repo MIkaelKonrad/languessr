@@ -11,6 +11,10 @@ app = Flask(__name__)
 def home():
     return render_template("HTMLPage1.html")
 
+@app.route('/Summary', methods = ['POST','GET'])
+def Summary():
+    return render_template("Summary.html")
+
 
 ''' What the below function does:
         1. chooses a samples from the list

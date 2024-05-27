@@ -64,7 +64,19 @@
   margin: 0;
   position: absolute;
   top: 50%;
-  left: 45%;
+  left: 42%;
+  text-align: center;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+
+.summary-center{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 31%;
+	text-align: center;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);	
 }
