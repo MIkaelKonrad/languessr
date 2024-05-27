@@ -7,8 +7,9 @@
 			Summary
 		</title>
 
-		<!-- Importing FirstButton.css for button style -->
+		<!-- Importing FirstButton.css for button style and Summary.css for the style of point Bar. -->
 		<link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
+        <link rel="stylesheet" type="text/css"  href="/static/css/Summary.css">
 		
 	</head>
 	<body>
@@ -23,13 +24,24 @@
 				</a>
 			</div>
 		</div>
-        <h1 id ="totalSc"> </h1>
-        <h1 id ="totalD"> </h1>
+        <div class="total-score">
+            <h1 id ="totalSc"> </h1>
+        </div>
+        <div class="pointBar-container"> 
+            <div class="point-Bar " id="pointBar"> </div>
+        </div>
+        <script> 
+            window.onload = function() {
+                var fillpercent = Math.round(parseFloat(localStorage.getItem('totalScore'))/150);
+                document.getElementById('pointBar').style.width= fillpercent.toString() + "%";
+                console.log(fillpercent.toString() + "%")
+                document.getElementById('pointBar').innerText = localStorage.getItem('totalScore').toString() +'/15000';
+            }
+        </script>
 		<script> 
             console.log(localStorage.getItem('totalDistance'));
 			localStorage.setItem('roundNumber',1);
-            document.getElementById('totalSc').innerText = 'Your total score was ' + localStorage.getItem('totalScore').toString() +'/15000.';
-            document.getElementById('totalD').innerText = 'You were off by a total of ' + localStorage.getItem('totalDistance') + 'km.';
+            document.getElementById('totalSc').innerText = 'Your total score was ' + localStorage.getItem('totalScore').toString() +'and you were off by a total of ' + localStorage.getItem('totalDistance') + 'km.';
 		</script>
         
 	</body>
