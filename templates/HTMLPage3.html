@@ -111,6 +111,8 @@
       <source src='{{RECDIR}}' type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
+
+    <!-- The script below determines which round we're in. and add this information to the the element Rnd#-->
     <script> 
       window.onload = function() {
         if(localStorage.getItem('roundNumber') == null ){
@@ -120,6 +122,8 @@
         }
         }
     </script>
+
+    <!-- displays 'Rnd#' as an h1 element on the screen. -->
     <h1 id="Rnd#"> </h1>
   </body>
 </html>

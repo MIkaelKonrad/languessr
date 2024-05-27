@@ -144,9 +144,9 @@
     <button class=big-button> Back to Start </button>
   </a>
 
-
+  <!-- The code below updates the round counding -->
   <script>
-    console.log(localStorage.getItem('roundNumber'))
+  /* If no round count or roundcount = 5 set roundnuber to 1, else increase roundcount by one*/
   if(localStorage.getItem('roundNumber')==null) {
       localStorage.setItem('roundNumber', 1)
     }else if(parseInt(localStorage.getItem('roundNumber')) < 5 ){
