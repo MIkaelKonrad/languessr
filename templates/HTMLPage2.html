@@ -4,8 +4,14 @@
 <head>
     <meta charset="utf-8" />
     <title>Guess evaluation</title>
+
+
+    <!-- Importing FirstButton.css for button style -->
     <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
-       <style>
+
+
+    <!-- css code for map style  -->
+    <style> 
     #map {
       height: 80%;
     }
@@ -14,14 +20,24 @@
       margin: 0;
       padding: 0;
     }	
-  </style>
+    </style>
    
 
 </head>
+
+
 <body >
- <div id="map"></div>
-<script> 
-let map;
+  <h1 id="welcome"> </h1>
+
+
+  <!-- Defining div element for map -->
+  <div id="map"></div>
+
+
+  <!-- Js code which displays a marker both for the sulotion and for the guess made -->
+  <!-- The Js code below is too large to be kept inside this html file however outsourcing it to its own file doesn't work.-->
+  <script> 
+    let map;
     let markersArray=[] ; 
     var abc = false;
     var guessLat = parseFloat(localStorage.getItem("GuessLat"));
@@ -29,85 +45,104 @@ let map;
     var targetLat = parseFloat(localStorage.getItem("targetLat"));
     var targetLng = parseFloat(localStorage.getItem("targetLng")); 
     function initMap() {
-     
+     /*The If else statement below computes the degree 'Zoomedinness' the map as depending on the accuracy of the guess made
+     at the moment there are only three levels of 'Zoomedinness' developping a comtinuous funtion accuracyGuess -> Zoom, is still to do  */
      if (parseFloat(localStorage.getItem('accuracyGuess'))>5000){
-     var Zoom =2.3;
-     } else if (5000>parseFloat(localStorage.getItem('accuracyGuess'))>1000){
+        var Zoom =2.3;
+      } else if (5000>parseFloat(localStorage.getItem('accuracyGuess'))>1000){
          var Zoom=3
-     }else {
+      }else {
          var Zoom=6
-     };
-     console.log(Zoom);
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: (guessLat + targetLat)/2, lng: (guessLng+targetLng)/2 },
-        zoom: Zoom
-      });
+      };
 
-     console.log(guessLat);
-        var connectingLine = new google.maps.Polyline({
+      /* Below we create a new instance of the google.maps.Map class centerd at the half way point between guess and solution */
+      map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: (guessLat + targetLat)/2, lng: (guessLng+targetLng)/2 },
+          zoom: Zoom
+        });
+      
+      /* below we create a new instance of the google.maps.Polyline class this element is visible as geodesic line 
+      connecting guess location and solution location. 
+      Possibly a non-Geodesic would look better i.e. a line which is straight on the but curved in irl as opposed to line that is straight 
+          irl but appears curved on the map.*/
+      var connectingLine = new google.maps.Polyline({
           path: [ {lat: guessLat , lng: guessLng}, {lat: targetLat , lng: targetLng} ],
           geodesic: true,
           strokeColor: "#000000",
           strokeOpacity: 1.0,
           strokeWeight: 1.5,
-
         })
-        connectingLine.setMap(map);
+      connectingLine.setMap(map); // displaying the Polyline defined above on the map
 
-      const GuessFlagIcon = {
-              url: '/static/images/GuessFlag_Layer 1.png', // url
-              scaledSize: new google.maps.Size(30, 60), // scaled size
-              origin: new google.maps.Point(0,0), // origin
-              anchor: new google.maps.Point(0, 60) // anchor
-              };
+        /* The blow objects: 
+              GuessFLagIcon: Style of the flag used to indicate the guess of the user
+              flagIcon: Style of the flag used to indicate the solution
+              markerGuess: Instance of google.maps.Marker class appearing where user made a guess
+              markerTarget: Instance of google.maps.Marker class appearing at the location of the solution.
+        */
+        const GuessFlagIcon = {
+          url: '/static/images/GuessFlag_Layer 1.png', // url
+          scaledSize: new google.maps.Size(30, 60), // scaled size
+          origin: new google.maps.Point(0,0), // origin
+          anchor: new google.maps.Point(0, 60) // anchor
+        };
+
+        const flagIcon = {
+          url: '/static/images/flag_Layer 1.png', // url
+          scaledSize: new google.maps.Size(30, 60), // scaled size
+          origin: new google.maps.Point(0,0), // origin
+          anchor: new google.maps.Point(0, 60) // anchor
+        };
+
         var markerGuess = new google.maps.Marker({
-                 map: map,
-                position: {lat: guessLat , lng: guessLng},
-                draggable: true,
-                icon: GuessFlagIcon
-                });
+          map: map,
+          position: {lat: guessLat , lng: guessLng},
+          draggable: true,
+          icon: GuessFlagIcon
+        });
 
-          const flagIcon = {
-              url: '/static/images/flag_Layer 1.png', // url
-              scaledSize: new google.maps.Size(30, 60), // scaled size
-              origin: new google.maps.Point(0,0), // origin
-              anchor: new google.maps.Point(0, 60) // anchor
-              };
-      
         var markerTarget = new google.maps.Marker({
-                 map: map,
-                position: {lat: targetLat , lng: targetLng},
-                draggable: true,
-                icon: flagIcon
-                });
+          map: map,
+          position: {lat: targetLat , lng: targetLng},
+          draggable: true,
+          icon: flagIcon
+        });
     }
 
-</script> 
-<script>
-  function logist(k,distance){
-    let value = 5000/(1+ Math.exp(-k*(distance-500)));
-    return value;
-  }
-  if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
-    window.onload = function() {
-        document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))) + " km, which gives you a score of " + Math.round(5000-logist(1/5000,parseFloat(localStorage.getItem('accuracyGuess')))) + '.';
-  };} else{ 
-    window.onload = function() {
-      document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m, which gives you a score of 5000.";
-  }}
   </script>
-    
-    <h1 id="welcome"> </h1>
-     <script async defer
+  
+  
+  <!-- The Js Code below computes the number of points achieved by the player as well as 
+    displaying those points and the distance between guess location and solution location -->
+  <script>
+
+    if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
+          window.onload = function() {
+              document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))) + " km, which gives you a score of " 
+              + Math.round(5000*(((15000-parseFloat(localStorage.getItem('accuracyGuess')))/15000)**6))+ '.';
+            };
+        } else{ 
+          window.onload = function() {
+              document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m, which gives you a score of 5000.";
+            }
+        }
+  </script>
+
+
+  <!-- The Js Code below accesses the GoogleMaps API-->
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9c3TZDsF8PKs6jC5lf1ZlG-MN8iHthE&callback=initMap">
-    </script>
+  </script>
+
+
+  <!-- The code Below creates buttons as attributes. -->
 	<a href="\">
-					<button class=first-button>
-						Try Again
-					</button>
-				</a>
+		<button class=first-button>
+		  Try Again
+	  </button>
+	</a>
 	<a href="\Start">
     <button class=big-button> Back to Start </button>
-    </a>
+  </a>
 </body>
 </html>

@@ -2,85 +2,114 @@
 <html>
   <head>
     <title>Simple Marker</title>
-    <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
-      <style>
-    #map {
-      height: 80%;
-      padding: 10;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }	
-  </style>
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
-    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
-  </head>
-  <body>
-    <div id="map"></div>
-    
-   <script >
 
-let map;
-let markersArray=[] ; 
-var abc = false;
-function deg2rad(deg){
-    rad = deg*Math.PI/180;
-    return rad
-}
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 20, lng: 0},
-    zoom: 2.3
-  });
-  map.setOptions({draggableCursor:'crosshair'});
-  localStorage.setItem("targetLat",parseFloat('{{LAT}}'));
-  localStorage.setItem("targetLng",parseFloat('{{LNG}}'));
-    map.addListener('click', function(e) {
-      Targetlng = parseFloat('{{LNG}}');
-      Targetlat = parseFloat('{{LAT}}');
-       if (abc) {
-            markersArray[0].setPosition(e.latLng);
-            
-            let distance = Math.acos(Math.sin(deg2rad(Targetlat))*Math.sin(deg2rad(e.latLng.lat()))+Math.cos(deg2rad(Targetlat))*Math.cos(deg2rad(e.latLng.lat()))*Math.cos(deg2rad(e.latLng.lng()-Targetlng)))*6371;
-            localStorage.setItem("accuracyGuess",distance);
-            console.log(distance);
+    <!-- Importing FirstButton.css for button style -->
+    <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
+
+
+    <!-- css code for map style  -->
+    <style>
+      #map {
+        height: 80%;
+        padding: 10;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }	
+    </style>
+  </head>
+
+
+
+<body>
+  <!-- Defining div element for map -->
+  <div id="map"></div>
+   
+  <!-- The Js code below lets the user make a guess on the map by clicking on a location 
+    Note : The Js code below is too large to be kept inside this html file however outsourcing it to its own file doesn't work.-->
+  <script >
+    let map;
+    let markersArray=[] ; 
+    var abc = false;
+    function deg2rad(deg){
+      rad = deg*Math.PI/180;
+      return rad
+    }
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 20, lng: 0},
+        zoom: 2.3
+      });
+      map.setOptions({draggableCursor:'crosshair'});
+      localStorage.setItem("targetLat",parseFloat('{{LAT}}'));
+      localStorage.setItem("targetLng",parseFloat('{{LNG}}'));
+      /*The following listener does two things on click
+          1. adds resp. moves a marker on the map indicating where the user last clicked
+          2. computes and saves the distance and location of the last click of the user
+        Note: point 2. should only be done on the last guess, however thrying to implement this has resulted in problems in HTMLPage2.html*/
+      map.addListener('click', function(e) {
+        Targetlng = parseFloat('{{LNG}}'); // importing Longitude of Solution from app.py
+        Targetlat = parseFloat('{{LAT}}'); // importing Lattitude of Solution from app.py
+        /* The 'If else'-stament below is used to distinguish two cases
+            1. a click occurs when a Marker does not yet exist (abc = FALSE), then a new instance of a marker has to be created and add to the map
+            2. a click occurs when a Marker allready exists (abc  = TRUE), then the position of the preexisting marker has to updated to the location
+              of the most recent click.*/
+        if (abc) {
+          // below we move the marker created in the else statement to a new location
+          markersArray[0].setPosition(e.latLng);
+          /* below we compute approximate the distance between guess and solution from their coordinates 
+          assuming  the earth is a spere with a radius of 6371 km*/
+          let distance = Math.acos(Math.sin(deg2rad(Targetlat))*Math.sin(deg2rad(e.latLng.lat()))+
+            Math.cos(deg2rad(Targetlat))*Math.cos(deg2rad(e.latLng.lat()))*Math.cos(deg2rad(e.latLng.lng()-Targetlng)))*6371;
+          // Saving the distance to local storage of the browser
+          localStorage.setItem("accuracyGuess",distance);
         } else{
+          // GuessFlagIcon defines the style of the flag indicating the last guess
           const GuessFlagIcon = {
                 url: '/static/images/GuessFlag_Layer 1.png', // url
                 scaledSize: new google.maps.Size(30, 60), // scaled size
                 origin: new google.maps.Point(0,0), // origin
                 anchor: new google.maps.Point(0, 60) // anchor
                 };
-            var marker = new google.maps.Marker({
+          // below a new instance of a marker is created  
+          var marker = new google.maps.Marker({
               map: map,
               position: {lat: e.latLng.lat() , lng: e.latLng.lng()},
               draggable: true,
               icon: GuessFlagIcon
             });
-            markersArray.push(marker)
-            abc = true;
-           let distance = Math.acos(Math.sin(deg2rad(Targetlat))*Math.sin(deg2rad(e.latLng.lat()))+Math.cos(deg2rad(Targetlat))*Math.cos(deg2rad(e.latLng.lat()))*Math.cos(deg2rad(e.latLng.lng()-Targetlng)))*6371;
-            localStorage.setItem("accuracyGuess",distance);
+          markersArray.push(marker)
+          abc = true;
+          /* below we compute approximate the distance between guess and solution from their coordinates 
+          assuming  the earth is a spere with a radius of 6371 km*/
+          let distance = Math.acos(Math.sin(deg2rad(Targetlat))*Math.sin(deg2rad(e.latLng.lat()))+
+            Math.cos(deg2rad(Targetlat))*Math.cos(deg2rad(e.latLng.lat()))*Math.cos(deg2rad(e.latLng.lng()-Targetlng)))*6371;
+          // Saving the distance to local storage of the browser
+          localStorage.setItem("accuracyGuess",distance);
         };
+        // saving the coordinates of the guess to local storage of the browser
         localStorage.setItem("GuessLat", e.latLng.lat());
         localStorage.setItem("GuessLng",e.latLng.lng());
         
-    });
+      });
     
-}
-
-    </script> 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9c3TZDsF8PKs6jC5lf1ZlG-MN8iHthE&callback=initMap">
+    }
     </script>
+
+    <!-- The Js Code below accesses the GoogleMaps API-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9c3TZDsF8PKs6jC5lf1ZlG-MN8iHthE&callback=initMap">
+    </script>
+    <!-- The code below creates a button which allows the user to submit a guess-->
     <a href="\Result">
-    <button class=first-button > Guess </button>
+      <button class=first-button > Guess </button>
     </a>
+    <!-- below we create a panel to listen to audio file from database-->
     <audio controls>
-        <source src='{{RECDIR}}' type="audio/mpeg">
-         Your browser does not support the audio element.
+      <source src='{{RECDIR}}' type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
     
   </body>
