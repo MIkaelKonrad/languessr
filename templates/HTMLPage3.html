@@ -5,20 +5,9 @@
 
     <!-- Importing FirstButton.css for button style -->
     <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
-
+    <link rel="stylesheet" type="text/css"  href="/static/css/Page3.css">
 
     <!-- css code for map style  -->
-    <style>
-      #map {
-        height: 80%;
-        padding: 10;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }	
-    </style>
   </head>
 
 
@@ -26,7 +15,7 @@
 <body>
   <!-- Defining div element for map -->
   <div id="map"></div>
-   
+  <div class="mini-info" id="Rnd#" ></div>
   <!-- The Js code below lets the user make a guess on the map by clicking on a location 
     Note : The Js code below is too large to be kept inside this html file however outsourcing it to its own file doesn't work.-->
   <script >
@@ -116,14 +105,14 @@
     <script> 
       window.onload = function() {
         if(localStorage.getItem('roundNumber') == null ){
-          document.getElementById('Rnd#').innerText = "Round: 1/5" 
+          document.getElementById('Rnd#').innerText = "Round: 1/5 \n Score: 0"  
         }else{
-          document.getElementById('Rnd#').innerText = "Round: " + localStorage.getItem('roundNumber') + "/5" 
+          document.getElementById('Rnd#').innerText = "Round: " + localStorage.getItem('roundNumber') + "/5 \n Score: " + localStorage.getItem('totalScore');
         }
         }
     </script>
 
     <!-- displays 'Rnd#' as an h1 element on the screen. -->
-    <h1 id="Rnd#"> </h1>
+    <!--<h1 id="Rnd#"> </h1> -->
   </body>
 </html>

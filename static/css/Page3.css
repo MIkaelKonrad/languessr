@@ -1,0 +1,27 @@
+/* This is a style sheet for HTMLPage3.html */
+
+#map {
+    height: 80%;
+    padding: 10;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }	
+
+
+.mini-info{
+    height:8%;
+    width:12%;
+    position:absolute;
+    right: 0%;
+    top: 8%;
+    background-color: blueviolet;
+    color: white;
+    box-shadow: 10px 10px 10px black;
+    border-radius: 4px;
+    font-size: 23px;
+    padding-left: 10px;
+    padding-top: 6px ;
+}
