@@ -37,7 +37,7 @@
 	margin: 0;
 	position: absolute;
 	top: 45%;
-	left: 31%;
+	left: 25%;
 	text-align: center;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);	
@@ -45,15 +45,24 @@
 
 .summary-container {
     height: 150px;
-    position: relative;
+    width: 80% ;
+    position: absolute;
+    top: 0%;
+    left:10%;
     border: 3px solid green;
+    border-radius: 20px;
   }
 
 
 /* the style below is for the map */
 #map {
     height: 60%;
+    width: 70%;
+    position: absolute;
+    top: 23%;
+    left:15%;
     padding: 10;
+    border-radius: 20px;
   }
   html, body {
     height: 100%;

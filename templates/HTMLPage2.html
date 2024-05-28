@@ -42,7 +42,11 @@
     var guessLat = parseFloat(localStorage.getItem("GuessLat"));
     var guessLng = parseFloat(localStorage.getItem("GuessLng"));
     var targetLat = parseFloat(localStorage.getItem("targetLat"));
-    var targetLng = parseFloat(localStorage.getItem("targetLng")); 
+    var targetLng = parseFloat(localStorage.getItem("targetLng"));
+    var array= localStorage.getItem('guessInfo').split(',');
+    array.push(guessLat.toString(),guessLng.toString(),targetLat.toString(),targetLng.toString());
+    console.log(array);
+    localStorage.setItem('guessInfo',array);
     function initMap() {
      /*The If else statement below computes the degree 'Zoomedinness' the map as depending on the accuracy of the guess made
      at the moment there are only three levels of 'Zoomedinness' developping a comtinuous funtion accuracyGuess -> Zoom, is still to do  */
