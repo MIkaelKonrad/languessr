@@ -1,4 +1,8 @@
-﻿.first-button{
+﻿/* This .css file defines all the different Buttonstyles used in this project. */
+
+
+/* .first-button is the most commonly used buttonstyle. */
+.first-button{
 				background-color: red;
 				color: white;
 				border: none;
@@ -21,16 +25,7 @@
 				background-color: blue;
 			}
 
-
-.play-button{
-	background-color: green;
-	color: white;
-	border: none;
-	height: 100px;
-	width: 100px;
-	border-radius:50px;
-
-}
+/* .big-button is like first button but bigger */ 
 .big-button{
 				background-color: red;
 				color: white;
@@ -55,6 +50,7 @@
 			}
 
 
+/* the styles below are only used in HTMLPage1.html and should probably be moved to a separate document.  */
 .container {
   height: 200px;
   position: relative;
@@ -69,15 +65,4 @@
   text-align: center;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-
-.summary-center{
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 31%;
-	text-align: center;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);	
 }

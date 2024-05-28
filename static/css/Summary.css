@@ -9,7 +9,7 @@
   	background-color: #036f08; /* Grey background */
 	position: absolute;
 	left: 10%;
-	top: 75%;
+	top: 85%;
 }
 /* .point-Bar is style for the point bar itself. */
 .point-Bar{
@@ -27,18 +27,36 @@
 .total-score{
     text-align:center;
     position:absolute;
-    top: 60%;
-    left: 15%;
+    top: 90%;
+    left: 23%;
     color:darkblue;
 }
 
-/* .summary-center is the style used for the box on top of the Summary page  */
+/* .summary-center and .summary-container are styles used for the box on top of the Summary page  */
 .summary-center{
 	margin: 0;
 	position: absolute;
-	top: 50%;
+	top: 45%;
 	left: 31%;
 	text-align: center;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);	
 }
+
+.summary-container {
+    height: 150px;
+    position: relative;
+    border: 3px solid green;
+  }
+
+
+/* the style below is for the map */
+#map {
+    height: 60%;
+    padding: 10;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }	

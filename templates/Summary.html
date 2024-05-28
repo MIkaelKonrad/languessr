@@ -13,36 +13,58 @@
 		
 	</head>
 	<body>
-		<h1>Languessr</h1>
-		<div class="container">
+        <!-- Note: A map summerizing all guesses should be added between the box on top and the score bar at the bottom.-->
+		<!-- the div element below creates the box on top of the page. -->
+		<div class="summary-container">
 			<div class="summary-center">
 				<h2> You have completed A full game. Start a new one</h2>
 				<a href="\Start">
-					<button class=first-button>
-						Start
+					<button class=big-button>
+						Return to Start
 					</button>
 				</a>
 			</div>
 		</div>
+
+        <!-- Defining div element for map -->
+        <div id="map"></div>
+
+        <!-- the div element below creates the point bar and the text above it.-->
         <div class="total-score">
-            <h1 id ="totalSc"> </h1>
+            <h2 id ="totalSc"> </h2>
         </div>
         <div class="pointBar-container"> 
             <div class="point-Bar " id="pointBar"> </div>
         </div>
+
+        <!-- the two script elements adjust the div elements above to the score achived by the user.-->
         <script> 
             window.onload = function() {
-                var fillpercent = Math.round(parseFloat(localStorage.getItem('totalScore'))/150);
+                var fillpercent = Math.round(parseFloat(localStorage.getItem('totalScore'))/250);
                 document.getElementById('pointBar').style.width= fillpercent.toString() + "%";
-                console.log(fillpercent.toString() + "%")
-                document.getElementById('pointBar').innerText = localStorage.getItem('totalScore').toString() +'/15000';
+                document.getElementById('pointBar').innerText = localStorage.getItem('totalScore').toString() +'/25000';
             }
         </script>
 		<script> 
-            console.log(localStorage.getItem('totalDistance'));
 			localStorage.setItem('roundNumber',1);
-            document.getElementById('totalSc').innerText = 'Your total score was ' + localStorage.getItem('totalScore').toString() +'and you were off by a total of ' + localStorage.getItem('totalDistance') + 'km.';
+            document.getElementById('totalSc').innerText = 'Your total score was ' + localStorage.getItem('totalScore').toString()
+                 +' and you were off by a total of ' + localStorage.getItem('totalDistance') + ' km.';
 		</script>
+
+        <script>
+            let map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 0, lng: 0 },
+                    zoom: 2
+                });
+            }
+        </script>
+
+        <!-- The Js Code below accesses the GoogleMaps API-->
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9c3TZDsF8PKs6jC5lf1ZlG-MN8iHthE&callback=initMap">
+        </script>
         
 	</body>
 	
