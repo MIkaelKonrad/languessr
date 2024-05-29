@@ -8,19 +8,8 @@
 
     <!-- Importing FirstButton.css for button style -->
     <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
-
-
-    <!-- css code for map style  -->
-    <style> 
-    #map {
-      height: 80%;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }	
-    </style>
+    <link rel="stylesheet" type="text/css"  href="/static/css/Page2.css">
+  
    
 
 </head>
@@ -32,7 +21,13 @@
   <!-- Defining div element for map -->
   <div id="map"></div>
 
-
+  <div class="guess-info-distance" id = 'distanceCount'> Test </div>
+  <div class="guess-info-score" id = 'scoreCount'> Test </div>
+  <div class="nxt-rnd-btn-container">
+    <a id = 'attrBtn'> 
+      <button class=first-button id="NxtRndBtn"></button>
+    </a>
+  </div>
   <!-- Js code which displays a marker both for the sulotion and for the guess made -->
   <!-- The Js code below is too large to be kept inside this html file however outsourcing it to its own file doesn't work.-->
   <script> 
@@ -123,15 +118,16 @@
           window.onload = function() {
             var score =  Math.round(5000*(((15000-parseFloat(localStorage.getItem('accuracyGuess')))/15000)**6));
             var distance = Math.round(parseFloat(localStorage.getItem('accuracyGuess')));
-            document.getElementById('welcome').innerText = "Your Guess was off by " + distance + " km, which gives you a score of " 
-              +score+ '.';
+            document.getElementById('distanceCount').innerText = "Distance: \n " + distance + ' km';
+            document.getElementById('scoreCount').innerText = 'Score: \n' + score;
             localStorage.setItem('totalScore',parseFloat(localStorage.getItem('totalScore')) + score);
             localStorage.setItem('totalDistance',parseFloat(localStorage.getItem('totalDistance'))+distance);
             };
         } else{ 
           window.onload = function() {
             var score = 5000;
-            document.getElementById('welcome').innerText = "Your Guess was off by " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m, which gives you a score of 5000.";
+            document.getElementById('distanceCount').innerText = "Distance: \n " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m";
+            document.getElementById('scoreCount').innerText = 'Score: \n 5000'
             localStorage.setItem('totalScore', parseFloat(localStorage.getItem('totalScore')) + score);
             console.log(localStorage.getItem('totalScore'));
             }
@@ -146,9 +142,7 @@
 
 
   <!-- The code Below creates buttons as attributes. -->
-  <a id = 'attrBtn'> 
-    <button class=first-button id="NxtRndBtn"></button>
-  </a>
+
 		
 	
 
@@ -179,6 +173,5 @@
 
 
   <!-- The code below displays number of points and distance to solution on the page. -->
-  <h1 id="welcome"> </h1>
 </body>
 </html>

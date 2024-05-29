@@ -1,0 +1,54 @@
+/* This file contains styles specific to HTMLPage2.html */
+
+
+.guess-info-distance{
+    height:10%;
+    width:8%;
+    position:absolute;
+    left: 30%;
+    bottom: 5%;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 4px;
+    font-size: 23px;
+    padding-left: 10px;
+    padding-top: 6px ;
+}
+
+
+.guess-info-score{
+    height:10%;
+    width:8%;
+    position:absolute;
+    right: 38%;
+    bottom: 5%;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 4px;
+    font-size: 23px;
+    padding-left: 10px;
+    padding-top: 6px ;
+}
+
+
+.nxt-rnd-btn-container{
+    position:absolute;
+    left: 40.5%;
+    bottom: 7%;
+}
+
+/* Map styles */
+#map {
+    height: 80%;
+    border-radius: 25px;
+    width: 80%;
+    padding: 10;
+    position:relative;
+    top: 0%;
+    left:10%
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  } 
