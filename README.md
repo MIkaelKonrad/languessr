@@ -16,7 +16,7 @@ The points are then added up over 5 rounds to give the end score.
 ___
 ## How to use
 
-Soon to be added
+Soon to be added.
 ___
 ## References
 
