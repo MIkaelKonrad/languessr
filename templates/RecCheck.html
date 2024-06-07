@@ -3,6 +3,7 @@
         <link rel="stylesheet" type="text/css"  href="/static/css/RecCheck.css">
     </head>
     <body>
+        <!-- The below form is for the user to adjust his searching filter -->
         <form action="#" method="post" id ="form">
             <p>Country:</p>
             <select name="Country">
@@ -258,31 +259,7 @@
             <p> <input type="submit" value="submit" id="submit"> </p> 
         </form>
 
-        <script> 
-            
-            var Languages = {
-                "Germanic": ["English","Swedish","German","Dutch","Danish","Yiddish"],
-                "Romance": ["Spanish","Italian","French"],
-                "Slavic": ["Russian","Polish","Czech","Serbo-Croatian"],
-                "Other": ["Basque","Georgian"]
-                }
-            window.onload = function(){
-                var lang = document.getElementById('lang');
-                var fam = document.getElementById('fam');
-                for (var x in Languages) {
-                    fam.options[fam.options.length] = new Option(x, x);
-                    }
-                fam.onchange = function(){
-                    lang.length=1;
-                    var z = Languages[this.value];
-                    for (var i = 0; i < z.length; i++) {
-                        lang.options[lang.options.length] = new Option(z[i], z[i]);
-                        }
-                    }
-            }
-            
-            
-        </script>
+        <script src = "/static/js/langSelect.js"> </script>
         <div id = "table2"> </div>
         <script>
             let htmlCode ='{{Table2}}';
