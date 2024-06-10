@@ -1,7 +1,12 @@
+/* This file contains the script for a language selctor.
+    it is used in coordinateCheck.html and RecCheck.html
+    Note: When adding new languages the below variable Languages has to be updated!!
+*/
+
 var Languages = {
     "Germanic": ["English","Swedish","German","Dutch","Danish","Yiddish"],
     "Romance": ["Spanish","Italian","French"],
-    "Slavic": ["Russian","Polish","Czech","Serbo-Croatian"],
+    "Slavic": ["Russian","Polish","Czech","Serbo-Croat"],
     "Other": ["Basque","Georgian"]
     }
 window.onload = function(){

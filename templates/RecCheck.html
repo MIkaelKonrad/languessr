@@ -1,5 +1,6 @@
 <html>
     <head>
+        <!-- below we import the style sheet, which contains the styles for the table. -->
         <link rel="stylesheet" type="text/css"  href="/static/css/RecCheck.css">
     </head>
     <body>
@@ -260,13 +261,15 @@
         </form>
 
         <script src = "/static/js/langSelect.js"> </script>
-        <div id = "table2"> </div>
+
+        <!-- The table displaying the different recordings is contained in the below div element -->
+        <div id = "table"> </div>
         <script>
-            let htmlCode ='{{Table2}}';
+            let htmlCode ='{{Table}}';
             htmlCode = htmlCode.replace(/&lt;/g,"<");
             htmlCode = htmlCode.replace(/&gt;/g,'>');
             htmlCode = htmlCode.replace(/&#34;/g,'"')
-            table=document.getElementById('table2');
+            table=document.getElementById('table');
             table.innerHTML = htmlCode;
         </script>
     </body>

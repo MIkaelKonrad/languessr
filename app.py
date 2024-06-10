@@ -61,7 +61,7 @@ def result():
     return render_template("HTMLPage2.html")
 
 
-''' The below code is used build up the database of samples and therefore not directely relevant for functioning of the game. '''
+''' The below code is used to build up the database of samples and therefore not directely relevant for functioning of the game. '''
 @app.route('/coordinateCheck', methods = ['POST','GET'])
 def coordinate_ceck():
     if request.method == "POST":
@@ -87,15 +87,21 @@ def double_check():
    
         return render_template('doubleCheck.html')
 
+''' The below code creates a custom html table depending on the users choice of filters. Table will contain info about each 
+about each recording fitting the users filter as well as the recording itsself. A button displaying the location of each recording may
+be added in the future. 
 
+This Page still has to be linked up with the others.'''
 @app.route('/RecCheck', methods = ['POST','GET'])
 def RecCheck():
     if request.method == 'POST':
+        # the below variables are the filter conditions set by the user.
         country = request.form["Country"]
         fam = request.form["fam"]
         lang = request.form["lang"]
-        print(fam)
+        # below we import the List of the recordings as a pandas dataframe.
         df = pd.read_csv('RecordingsList.csv')
+        # we now delete all the rows containing recordings not fitting the users filter
         if country != "":
             df = df.loc[df['Country'] == country]
         
@@ -104,8 +110,9 @@ def RecCheck():
         
         if lang != "":
             df = df.loc[df['Language'] == lang ]
-        table = '          <table class="table"> <tr> <th>Country</th>  <th>Language Family</th>  <th>Language</th>  <th>Latitude</th> <th>Longitude</th> <th class="wide-column">Recording</th> <th>Show Location</th> </tr>'
         df= df.reset_index()
+        # below we generate the html code for the table as a string
+        table = '<table class="table"> <tr> <th>Country</th>  <th>Language Family</th>  <th>Language</th>  <th>Longitude</th> <th>Latitude</th> <th class="wide-column">Recording</th> <th>Show Location</th> </tr>'
         for index, row in df.iterrows():
             next_row = "<tr> <td>"+row['Country'] +"</td> <td>"+row['Language Family'] +"</td> <td>"+ row['Language'] +"</td> <td>" +str(row['Longitude']) +"</td> <td>" + str(row['Latitude']) +"</td>"
             rec = row['Recording']
@@ -119,13 +126,15 @@ def RecCheck():
             recording = '<td> <audio controls> <source src='+rec_dir+' type="audio/mpeg"> Your browser does not support the audio element.</audio> </td>'
             table = table + next_row + recording + ' <td> <Button>Location</Button></td></tr>'
         table = table + " </table>"
-        df = df.to_csv(header=None, index=False).strip('\n').split('\n')
-        return render_template('RecCheck.html', Table = df, Table2 = table )
+        #We now render the page and export the table as Table
+        return render_template('RecCheck.html', Table = table )
     elif request.method == 'GET':
         
         return render_template('RecCheck.html', Table = '')
     else :
         return render_template('ReckCheck.html', Table = '')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
