@@ -20,119 +20,34 @@
 
   <!-- Defining div element for map -->
   <div id="map"></div>
-
-  <div class="guess-info-distance" id = 'distanceCount'> Test </div>
-  <div class="guess-info-score" id = 'scoreCount'> Test </div>
-  <div class="nxt-rnd-btn-container">
-    <a id = 'attrBtn'> 
-      <button class=first-button id="NxtRndBtn"></button>
-    </a>
+  <div class = "info-container">
+    <div class="guess-info-distance" id = 'distanceCount'> Test </div>
+    <div class="button-container"> 
+      <div class="nxt-rnd-btn-container">
+        <a id = 'attrBtn'> 
+          <button class="summary-button" id="NxtRndBtn"></button>
+        </a>
+      </div>
+      <div class="restart-btn-container">
+        <a href="\Start">
+          <button class="summary-button"> Restart Game </button>
+        </a>
+  
+      </div>
+    </div>
+    <div class="guess-info-score" id = 'scoreCount'> Test </div>
+    
+        
+    </div>
+    
   </div>
-  <!-- Js code which displays a marker both for the sulotion and for the guess made -->
-  <!-- The Js code below is too large to be kept inside this html file however outsourcing it to its own file doesn't work.-->
-  <script> 
-    let map;
-    let markersArray=[] ; 
-    var abc = false;
-    var guessLat = parseFloat(localStorage.getItem("GuessLat"));
-    var guessLng = parseFloat(localStorage.getItem("GuessLng"));
-    var targetLat = parseFloat(localStorage.getItem("targetLat"));
-    var targetLng = parseFloat(localStorage.getItem("targetLng"));
-    var array= localStorage.getItem('guessInfo').split(',');
-    array.push(guessLat.toString(),guessLng.toString(),targetLat.toString(),targetLng.toString());
-    console.log(array);
-    localStorage.setItem('guessInfo',array);
-    function initMap() {
-     /*The If else statement below computes the degree 'Zoomedinness' the map as depending on the accuracy of the guess made
-     at the moment there are only three levels of 'Zoomedinness' developping a comtinuous funtion accuracyGuess -> Zoom, is still to do  */
-     if (parseFloat(localStorage.getItem('accuracyGuess'))>5000){
-        var Zoom =2.3;
-      } else if (5000>parseFloat(localStorage.getItem('accuracyGuess'))>1000){
-         var Zoom=3
-      }else {
-         var Zoom=6
-      };
-
-      /* Below we create a new instance of the google.maps.Map class centerd at the half way point between guess and solution */
-      map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: (guessLat + targetLat)/2, lng: (guessLng+targetLng)/2 },
-          zoom: Zoom
-        });
-      
-      /* below we create a new instance of the google.maps.Polyline class this element is visible as geodesic line 
-      connecting guess location and solution location. 
-      Possibly a non-Geodesic would look better i.e. a line which is straight on the but curved in irl as opposed to line that is straight 
-          irl but appears curved on the map.*/
-      var connectingLine = new google.maps.Polyline({
-          path: [ {lat: guessLat , lng: guessLng}, {lat: targetLat , lng: targetLng} ],
-          geodesic: true,
-          strokeColor: "#000000",
-          strokeOpacity: 1.0,
-          strokeWeight: 1.5,
-        })
-      connectingLine.setMap(map); // displaying the Polyline defined above on the map
-
-        /* The blow objects: 
-              GuessFLagIcon: Style of the flag used to indicate the guess of the user
-              flagIcon: Style of the flag used to indicate the solution
-              markerGuess: Instance of google.maps.Marker class appearing where user made a guess
-              markerTarget: Instance of google.maps.Marker class appearing at the location of the solution.
-        */
-        const GuessFlagIcon = {
-          url: '/static/images/GuessFlag_Layer 1.png', // url
-          scaledSize: new google.maps.Size(30, 60), // scaled size
-          origin: new google.maps.Point(0,0), // origin
-          anchor: new google.maps.Point(0, 60) // anchor
-        };
-
-        const flagIcon = {
-          url: '/static/images/flag_Layer 1.png', // url
-          scaledSize: new google.maps.Size(30, 60), // scaled size
-          origin: new google.maps.Point(0,0), // origin
-          anchor: new google.maps.Point(0, 60) // anchor
-        };
-
-        var markerGuess = new google.maps.Marker({
-          map: map,
-          position: {lat: guessLat , lng: guessLng},
-          draggable: true,
-          icon: GuessFlagIcon
-        });
-
-        var markerTarget = new google.maps.Marker({
-          map: map,
-          position: {lat: targetLat , lng: targetLng},
-          draggable: true,
-          icon: flagIcon
-        });
-    }
-
-  </script>
+  <!-- Js code which displays a marker both for the sulotion and for the guess made is imported below -->
+  <script src = "/static/js/mapPage2.js" > </script>
   
   
-  <!-- The Js Code below computes the number of points achieved by the player as well as 
+  <!-- The Js Code imported below computes the number of points achieved by the player as well as 
     displaying those points and the distance between guess location and solution location -->
-  <script src = "/static/js/solCheck.js" >
-
-    /* if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
-          window.onload = function() {
-            var score =  Math.round(5000*(((15000-parseFloat(localStorage.getItem('accuracyGuess')))/15000)**6));
-            var distance = Math.round(parseFloat(localStorage.getItem('accuracyGuess')));
-            document.getElementById('distanceCount').innerText = "Distance: \n " + distance + ' km';
-            document.getElementById('scoreCount').innerText = 'Score: \n' + score;
-            localStorage.setItem('totalScore',parseFloat(localStorage.getItem('totalScore')) + score);
-            localStorage.setItem('totalDistance',parseFloat(localStorage.getItem('totalDistance'))+distance);
-            };
-        } else{ 
-          window.onload = function() {
-            var score = 5000;
-            document.getElementById('distanceCount').innerText = "Distance: \n " + Math.round(parseFloat(localStorage.getItem('accuracyGuess'))*1000) + " m";
-            document.getElementById('scoreCount').innerText = 'Score: \n 5000'
-            localStorage.setItem('totalScore', parseFloat(localStorage.getItem('totalScore')) + score);
-            console.log(localStorage.getItem('totalScore'));
-            }
-        } */
-  </script>
+  <script src = "/static/js/solCheck.js" ></script>
 
 
   <!-- The Js Code below accesses the GoogleMaps API-->
@@ -146,30 +61,10 @@
 		
 	
 
-	<a href="\Start">
-    <button class=big-button> Restart Game </button>
-  </a>
 
-  <!-- The code below updates the round counding -->
-  <script>
-  /* If no round count or roundcount = 5 set roundnuber to 1, else increase roundcount by one*/
-  var Btn = document.getElementById('NxtRndBtn');
-  var a = document.getElementById('attrBtn')
 
-  if(localStorage.getItem('roundNumber')==null) {
-      localStorage.setItem('roundNumber', 1);
-      Btn.innerText  = 'Next Round';
-      a.href = '/';
-    }else if(parseInt(localStorage.getItem('roundNumber')) < 5 ){
-      localStorage.setItem('roundNumber',parseFloat(localStorage.getItem('roundNumber')) +1);
-      Btn.innerText  = 'Next Round';
-      a.href = '/';
-    }else{
-      localStorage.setItem('roundNumber',1);
-      Btn.innerText = 'Summary';
-      a.href = '/Summary';
-    } 
-  </script>
+  <!-- The script imported below updates the round counding and  handles the linkage of the buttons on this page -->
+  <script src = "/static/js/roundCount.js"> </script>
 
 
   <!-- The code below displays number of points and distance to solution on the page. -->

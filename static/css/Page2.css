@@ -1,45 +1,89 @@
 /* This file contains styles specific to HTMLPage2.html */
 
+.info-container{
+    display: flex;
+    position: absolute;
+    left: 20% ;
+    bottom: 0%;
+    width: 50% ; 
+    height: 25% ; 
+}
+
 
 .guess-info-distance{
-    height:10%;
-    width:8%;
-    position:absolute;
-    left: 30%;
-    bottom: 5%;
+    height:40%;
+    width:25%;
+    position:relative;
+    left: 0%;
+    top: 20%;
     background-color: blueviolet;
     color: white;
     border-radius: 4px;
-    font-size: 23px;
+    font-size: larger;
     padding-left: 10px;
     padding-top: 6px ;
 }
 
-
+.button-container{
+    display:flex;
+    flex-direction: column;
+    position: relative;
+    top: 10%;
+}
 .guess-info-score{
-    height:10%;
-    width:8%;
-    position:absolute;
-    right: 38%;
-    bottom: 5%;
+    height:40%;
+    width:25%;
+    position:relative;
+    left: 25%;
+    top : 20%;
     background-color: blueviolet;
     color: white;
     border-radius: 4px;
-    font-size: 23px;
+    font-size: larger;
     padding-left: 10px;
     padding-top: 6px ;
 }
 
+.summary-button{
+    background-color: red;
+    color: white;
+    border: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: border-radius 0.5s;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: larger;
+    padding:10%;
 
+}
+.summary-button:hover{
+    transition: background-color 0.2s;
+	background-color: green;
+	border-radius: 10px;
+	box-shadow: 10px 10px 10px black;
+}
+.summary-button:active{
+    background-color: blue;
+}
 .nxt-rnd-btn-container{
-    position:absolute;
+    position:relative;
     left: 40.5%;
-    bottom: 7%;
+    bottom: 2%;
 }
 
+
+
+.restart-btn-container{
+    position:relative;
+    left:40.5%;
+    bottom:0%;
+}
 /* Map styles */
 #map {
-    height: 80%;
+    height: 75%;
     border-radius: 25px;
     width: 80%;
     padding: 10;
