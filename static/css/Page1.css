@@ -1,0 +1,22 @@
+.container {
+    height: 200px;
+    display:flex;
+    flex-direction: column;
+    border: 3px solid green;
+    align-items: center;
+  }
+  
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 42%;
+    text-align: center;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+.super-container{
+    display:flex;
+    flex-direction:column;
+    row-gap: 10px;
+}

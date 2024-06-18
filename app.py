@@ -112,7 +112,7 @@ def RecCheck():
             df = df.loc[df['Language'] == lang ]
         df= df.reset_index()
         # below we generate the html code for the table as a string
-        table = '<table class="table"> <tr> <th>Country</th>  <th>Language Family</th>  <th>Language</th>  <th>Longitude</th> <th>Latitude</th> <th class="wide-column">Recording</th> <th>Show Location</th> </tr>'
+        table = '<table class= table> <tr> <th>Country</th>  <th>Language Family</th>  <th>Language</th>  <th>Longitude</th> <th>Latitude</th> <th class="wide-column">Recording</th> <th>Show Location</th> </tr>'
         for index, row in df.iterrows():
             next_row = "<tr> <td>"+row['Country'] +"</td> <td>"+row['Language Family'] +"</td> <td>"+ row['Language'] +"</td> <td>" +str(row['Longitude']) +"</td> <td>" + str(row['Latitude']) +"</td>"
             rec = row['Recording']

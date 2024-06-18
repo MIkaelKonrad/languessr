@@ -6,16 +6,15 @@
     left: 20% ;
     bottom: 0%;
     width: 50% ; 
-    height: 25% ; 
+    height: 25% ;
+    justify-content: space-between; 
+    align-items: center;
 }
 
 
 .guess-info-distance{
     height:40%;
     width:25%;
-    position:relative;
-    left: 0%;
-    top: 20%;
     background-color: blueviolet;
     color: white;
     border-radius: 4px;
@@ -29,13 +28,16 @@
     flex-direction: column;
     position: relative;
     top: 10%;
+    align-items:center;
+    justify-content: space-around;
+    row-gap: 5px;
 }
 .guess-info-score{
     height:40%;
     width:25%;
-    position:relative;
+    /*position:relative;
     left: 25%;
-    top : 20%;
+    top : 20%;*/
     background-color: blueviolet;
     color: white;
     border-radius: 4px;
@@ -53,8 +55,8 @@
     border-radius: 25px;
     cursor: pointer;
     transition: border-radius 0.5s;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     font-size: larger;
     padding:10%;
 
@@ -69,17 +71,12 @@
     background-color: blue;
 }
 .nxt-rnd-btn-container{
-    position:relative;
-    left: 40.5%;
-    bottom: 2%;
+    display: flex;
 }
 
 
-
 .restart-btn-container{
-    position:relative;
-    left:40.5%;
-    bottom:0%;
+    display: flex;
 }
 /* Map styles */
 #map {

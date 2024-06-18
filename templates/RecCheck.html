@@ -2,12 +2,15 @@
     <head>
         <!-- below we import the style sheet, which contains the styles for the table. -->
         <link rel="stylesheet" type="text/css"  href="/static/css/RecCheck.css">
+        <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
     </head>
     <body>
+        <div class=top-container>
         <!-- The below form is for the user to adjust his searching filter -->
-        <form action="#" method="post" id ="form">
-            <p>Country:</p>
-            <select name="Country">
+            <div class="form-container">
+                <form action="#" method="post" id ="form">
+                    <p>Country:</p>
+                    <select name="Country">
                 <option value="">--</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
@@ -248,18 +251,25 @@
                 <option value="Serbia">Serbia</option>
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
-            </select>
-            <p>Language family:</p>
-            <select name="fam" id = "fam">
-                <option value="" selected="selected"> Chose language family </option>
-            </select>
-            <p>Language:</p>
-            <select name="lang" id="lang">
-                <option value="" selected="selected"> Please chose language family first. </option>
-            </select>
-            <p> <input type="submit" value="submit" id="submit"> </p> 
-        </form>
-
+                    </select>
+                    <p>Language family:</p>
+                    <select name="fam" id = "fam">
+                        <option value="" selected="selected"> Chose language family </option>
+                    </select>
+                    <p>Language:</p>
+                    <select name="lang" id="lang">
+                        <option value="" selected="selected"> Please chose language family first. </option>
+                    </select>
+                    <p> <input type="submit" value="submit" id="submit"> </p> 
+                </form>
+            </div>
+            <div class="back-to-start-container">
+                <h2>Return to Start </h2>
+                <a href="\Start">
+                    <button class="big-button"> Back to Start </button>
+                </a>
+            </div>
+        </div> 
         <script src = "/static/js/langSelect.js"> </script>
 
         <!-- The table displaying the different recordings is contained in the below div element -->

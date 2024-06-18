@@ -9,26 +9,33 @@
 
 		<!-- Importing FirstButton.css for button style -->
 		<link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
-		
+		<link rel="stylesheet" type="text/css"  href="/static/css/Page1.css">
 	</head>
 	<body>
 		<h1>Languessr</h1>
-		<div class="container">
-			<div class="vertical-center">
-				<h2> Try the Game</h2>
-				<a href="\">
+		<div class="super-container"> 
+			<div class="container">
+				<div class="vertical-center">
+					<h2> Try the Game</h2>
+					<a href="\">
+						<button class=first-button>
+							Start
+						</button>
+					</a>
+				</div>
+			</div>
+			<div class="container">
+				<h2> Browse recordings: </h2>
+				<p> Click the button below to access the database of all the recordings used for Languessr. </p>
+				<a href="/RecCheck">
 					<button class=first-button>
-						Start
+						Browse
 					</button>
 				</a>
+			
 			</div>
 		</div>
-		<script> 
-			localStorage.setItem('roundNumber',1);
-			localStorage.setItem('totalScore',0);
-			localStorage.setItem('totalDistance',0);
-			localStorage.setItem('guessInfo',[])
-		</script>
+		<script src = "/static/js/HTMLPage1.js" ></script>
 	</body>
 	
 	
