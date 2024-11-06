@@ -4,6 +4,8 @@ import RecordingClass as rec
 import os
 import shutil
 import pandas as pd
+import numpy as np
+import HandlingRecordingsList as hrl
 
 app = Flask(__name__)
 
@@ -30,8 +32,23 @@ def Summary():
 @app.route('/', methods = ['POST','GET'])
 def game():
 
+    # load current game settings from gameSettings.txt
+
+    game_settings = open('gameSettings.txt','r')
+    settings_string = game_settings.read()
+    settings_array = settings_string.split(";")
+    new_array = []
+    for i in settings_array:
+        new_array.append(i.split(":"))
+    
+    country = new_array[0][1]
+    fam = new_array[1][1]
+    lang = new_array[2][1]
+
     # point 1. from above
     df = pd.read_csv('RecordingsList.csv')
+    df2 = df.Recdf.df_restr(country,fam,lang)
+    print(df2)
     GameSeed = df.sample(n=2)
 
     # point 2. from above
@@ -134,6 +151,19 @@ def RecCheck():
     else :
         return render_template('ReckCheck.html', Table = '')
 
+
+@app.route('/GameSettings', methods = ['POST','GET'])
+def GameSettings():
+    if request.method == 'POST':
+        country = request.form["Country"]
+        fam = request.form["fam"]
+        lang = request.form["lang"]
+        settings_string = "Country:" + country + "; Language Family:" + fam + "; Language:" + lang + ";"
+        game_settings = open('gameSettings.txt','w')
+        game_settings.write(settings_string)
+        game_settings.close()
+
+    return render_template('GameSettings.html')
 
 
 if __name__ == '__main__':

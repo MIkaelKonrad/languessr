@@ -51,18 +51,3 @@
 
 
 /* the styles below are only used in HTMLPage1.html and should probably be moved to a separate document.  */
-.container {
-  height: 200px;
-  position: relative;
-  border: 3px solid green;
-}
-
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 42%;
-  text-align: center;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
