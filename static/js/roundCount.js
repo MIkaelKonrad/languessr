@@ -1,7 +1,7 @@
 /* The code below updates the round counding and handles the button links of Page2
  If no round count or roundcount = 5 set roundnuber to 1, else increase roundcount by one*/
 var Btn = document.getElementById('NxtRndBtn');
-  var a = document.getElementById('attrBtn')
+  var a = document.getElementById('attrBtn');
 
   if(localStorage.getItem('roundNumber')==null) {
       localStorage.setItem('roundNumber', 1);

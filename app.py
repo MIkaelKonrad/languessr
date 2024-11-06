@@ -6,11 +6,19 @@ import shutil
 import pandas as pd
 import numpy as np
 import HandlingRecordingsList as hrl
+from game_settings import Game_Settings
+from game_seed import Game_Seed
 
 app = Flask(__name__)
 
 @app.route('/Start', methods = ['POST','GET'])
 def home():
+    current_settings= Game_Settings('','','')
+    current_settings.read()
+    current_settings.print()
+
+    GameSeed = Game_Seed(current_settings)
+    GameSeed.save()
     return render_template("HTMLPage1.html")
 
 @app.route('/Summary', methods = ['POST','GET'])
@@ -34,38 +42,15 @@ def game():
 
     # load current game settings from gameSettings.txt
 
-    game_settings = open('gameSettings.txt','r')
-    settings_string = game_settings.read()
-    settings_array = settings_string.split(";")
-    new_array = []
-    for i in settings_array:
-        new_array.append(i.split(":"))
+    current_settings= Game_Settings('','','')
+    current_settings.read()
+    current_settings.print()
+
+    GameSeed = Game_Seed(current_settings)
+    GameSeed.read()
     
-    country = new_array[0][1]
-    fam = new_array[1][1]
-    lang = new_array[2][1]
-
-    # point 1. from above
-    df = pd.read_csv('RecordingsList.csv')
-    df2 = df.Recdf.df_restr(country,fam,lang)
-    print(df2)
-    GameSeed = df.sample(n=2)
-
-    # point 2. from above
-    lat = GameSeed['Latitude'].iloc[1]
-    lng = GameSeed['Longitude'].iloc[1]
-
-    # point 3. from above
-    rec = GameSeed['Recording'].iloc[1]
-    rec_arr = rec.split('\\')
-    n = len(rec_arr)
-    rec_dir='\\static'
-    i=6
-    while i<=n-1:
-        rec_dir =  rec_dir + '\\' + rec_arr[i] 
-        i = i+1
-     # Points 4. and 5. from above
-    return render_template("HTMLPage3.html",LNG = lng, LAT = lat, RECDIR = rec_dir, RECNAME = rec_arr[n-1])
+    seed = GameSeed.choose(1)
+    return render_template("HTMLPage3.html",LNG = seed[0], LAT = seed[1], RECDIR = seed[2], RECNAME = seed[3])
 
     
    
@@ -154,14 +139,15 @@ def RecCheck():
 
 @app.route('/GameSettings', methods = ['POST','GET'])
 def GameSettings():
+    current_settings= Game_Settings('','','')
+    current_settings.read()
+    current_settings.print()
     if request.method == 'POST':
         country = request.form["Country"]
         fam = request.form["fam"]
         lang = request.form["lang"]
-        settings_string = "Country:" + country + "; Language Family:" + fam + "; Language:" + lang + ";"
-        game_settings = open('gameSettings.txt','w')
-        game_settings.write(settings_string)
-        game_settings.close()
+        new_settings = Game_Settings(country,fam,lang)
+        new_settings.save()
 
     return render_template('GameSettings.html')
 
