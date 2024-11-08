@@ -17,5 +17,6 @@ if (parseFloat(localStorage.getItem('accuracyGuess'))>1) {
       document.getElementById('scoreCount').innerText = 'Score: \n 5000'
       localStorage.setItem('totalScore', parseFloat(localStorage.getItem('totalScore')) + score);
       console.log(localStorage.getItem('totalScore'));
+      document.getElementById("NxtRndBtn").value = 'Score: \n' + score;
       }
   }

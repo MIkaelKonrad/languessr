@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Guess evaluation</title>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Importing FirstButton.css for button style -->
     <link rel="stylesheet" type="text/css"  href="/static/css/FirstButton.css">
     <link rel="stylesheet" type="text/css"  href="/static/css/Page2.css">
@@ -25,8 +25,9 @@
     
     <div class="button-container"> 
       <div class="nxt-rnd-btn-container">
-        <a id = 'attrBtn'> 
-          <button class="summary-button" id="NxtRndBtn"></button>
+        
+        <a id = 'attrBtn' > 
+            <button class="summary-button" id="NxtRndBtn" name="NxtRndBtn" ></button>
         </a>
       </div>
       <div class="restart-btn-container">
@@ -35,6 +36,7 @@
         </a>
   
       </div>
+      <button onclick="sendScore()"> Submit</button>
     </div>
 
     <div class="guess-info-score" id = 'scoreCount'> Test </div>
@@ -50,6 +52,9 @@
   <!-- The Js Code imported below computes the number of points achieved by the player as well as 
     displaying those points and the distance between guess location and solution location -->
   <script src = "/static/js/solCheck.js" ></script>
+
+  <script src = "/static/js/HTMLPage2.js" ></script>
+  <!-- <script src = "/static/js/HTMLPage2.js" ></script> -->
 
 
   <!-- The Js Code below accesses the GoogleMaps API-->

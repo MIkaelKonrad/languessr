@@ -8,6 +8,7 @@ import numpy as np
 import HandlingRecordingsList as hrl
 from game_settings import Game_Settings
 from game_seed import Game_Seed
+from score_tracker import Score_Tracker
 
 app = Flask(__name__)
 
@@ -16,8 +17,9 @@ def home():
     current_settings= Game_Settings('','','')
     current_settings.read()
     current_settings.print()
-
     GameSeed = Game_Seed(current_settings)
+    reset = Score_Tracker('','','','')
+    reset.new()
     GameSeed.save()
     return render_template("HTMLPage1.html")
 
@@ -46,6 +48,7 @@ def game():
     current_settings.read()
     current_settings.print()
 
+    # read the current game seed
     GameSeed = Game_Seed(current_settings)
     GameSeed.read()
     
@@ -58,9 +61,12 @@ def game():
     
 
 
-@app.route('/Result')
+@app.route('/Result', methods = ['POST','Get'])
 def result():
     return render_template("HTMLPage2.html")
+    
+    
+        
 
 
 ''' The below code is used to build up the database of samples and therefore not directely relevant for functioning of the game. '''
@@ -150,6 +156,18 @@ def GameSettings():
         new_settings.save()
 
     return render_template('GameSettings.html')
+
+@app.route('/name', methods=['GET', 'POST'])
+def name():
+    if request.method == "POST":
+        print("trying to save")
+        name = request.get_json(force=True)
+        a = name.split(":")
+        print(a)
+        current_score = Score_Tracker(a[2],a[3],a[1],a[0])
+        current_score.save()
+        return jsonify(name)
+    return url_for(sim.home)
 
 
 if __name__ == '__main__':
